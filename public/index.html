@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration</title>
+</head>
+<body>
+  <h1>Register</h1>
+  <form id="regForm">
+    <input type="text" placeholder="Name" id="name" required><br>
+    <input type="email" placeholder="Email" id="email" required><br>
+    <button type="submit">Register</button>
+  </form>
+  <p id="msg"></p>
+  <script>
+    document.getElementById('regForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const res = await fetch('/register', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({name, email})
+      });
+      const text = await res.text();
+      document.getElementById('msg').innerText = text;
+    };
+  </script>
+</body>
+</html>
